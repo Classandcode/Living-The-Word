@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Living The Word</title>
+    <link rel="icon" href="birdlogo.png" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="biblestudy.css">
+    <style>
+      .chat-container {
+        max-width: 600px;
+        margin: 50px auto;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 10px;
+        background-color: #f9f9f9;
+      }
+      .messages {
+        height: 300px;
+        overflow-y: auto;
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #fff;
+      }
+      .message {
+        margin: 5px 0;
+      }
+      .user-message {
+        text-align: right;
+        color: blue;
+      }
+      .bot-message {
+        text-align: left;
+        color: green;
+      }
+      .input-container {
+        display: flex;
+      }
+      .input-container input {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      .input-container button {
+        padding: 10px 20px;
+        border: none;
+        background-color: #28a745;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <img src="birdlogo.png" alt="logo" width="100" height="100" />
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="Papi's ecommerce.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="Resources.html">Resources</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="biblestudy.html">Bible Study</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Christ is King</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="carousel-background" style="background-image: url('jesus.jpg')"></div>
+          <div class="carousel-caption">
+            <h3 style="opacity: 0.7;">Welcome to Bible Study</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-container">
+      <div class="messages" id="messages"></div>
+      <div class="input-container">
+        <input type="text" id="userInput" placeholder="Ask me about a verse..." />
+        <button onclick="sendMessage()">Send</button>
+      </div>
+    </div>
+
+    <script>
+      async function sendMessage() {
+        const userInput = document.getElementById('userInput').value;
+        if (!userInput) return;
+
+        const messages = document.getElementById('messages');
+
+        const userMessage = document.createElement('div');
+        userMessage.className = 'message user-message';
+        userMessage.textContent = userInput;
+        messages.appendChild(userMessage);
+
+        document.getElementById('userInput').value = '';
+
+        const response = await fetch('http://127.0.0.1:5000/chatbot', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query: userInput })
+        });
+        const data = await response.json();
+
+        const botMessage = document.createElement('div');
+        botMessage.className = 'message bot-message';
+        botMessage.textContent = data.response;
+        messages.appendChild(botMessage);
+
+        messages.scrollTop = messages.scrollHeight;
+      }
+    </script>
+  </body>
+</html>
