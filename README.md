@@ -1,2 +1,1 @@
-# Living The Word
- 
+livingtheword.netlify.app/biblestudy
