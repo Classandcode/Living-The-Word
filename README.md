@@ -1,1 +1,3 @@
 livingtheword.netlify.app/biblestudy
+
+This project is an e-commerce website designed to showcase and sell the books authored by my father, featuring biblical teachings rooted in Pentecostal beliefs and aligned with the King James Version (KJV) of the Bible. Beyond its online store functionality, the website provides resources for ministries, tools for spiritual growth, and interactive features powered by Ollama AI. Users can input personal challenges or questions to receive relevant Bible verses and related stories, offering personalized guidance and insights. The platform aims to combine faith-based teachings with practical support, serving as a resource for learning, ministry, and spiritual development.
